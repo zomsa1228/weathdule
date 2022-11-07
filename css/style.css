@@ -89,12 +89,7 @@ body{
 
 } */
 
-.container{
-  height: 15em;     /* 高さを制限(※) */
-  overflow: scroll;  /* スクロールバーを表示(※) */
-  border: red 1px dashed;    /* 枠線を追加 */
-  background-color: #fff0f0; /* 背景色を追加 */
-}
+
 
 #input_max_temp,#input_min_temp,#input_humidity{
 width:8rem;
@@ -103,3 +98,21 @@ width:8rem;
 #result{
   visibility: hidden;
 }
+
+
+.container {  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 1em 0em;
+  grid-auto-flow: row;
+}
+
+.temp { grid-area: 1 / 1 / 2 / 3; }
+
+.feel_likes { grid-area: 2 / 1 / 3 / 3; }
+.humidityarray { grid-area: 3 / 1 / 4 / 3; }
+.pop { grid-area: 4 / 1 / 5 / 3; }
+.precipitation { grid-area: 5 / 1 / 6 / 3; }
+.weather { grid-area: 6 / 1 / 7 / 2; }
+.weather_icon { grid-area: 6 / 2 / 7 / 3; }
+.aria { grid-area: 1 / 1 / 7 / 3; }

@@ -17,6 +17,11 @@ var three ="";
 var pop = "";
 var precipitation ="";
 var days = "";
+var table1 ="";
+var table2 ="";
+var table3 ="";
+var table4 ="";
+var table5 ="";
 
 //数値
 let listnum = 0;
@@ -141,7 +146,7 @@ var normalday="";
         } 
         
         const requestUrl = "https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&mode=json&units=metric&lang=ja&appid="+appId;
-2        //Ajax通信用のオブジェクトを作成
+        //Ajax通信用のオブジェクトを作成
         let xhr =new XMLHttpRequest();
 
         //通信方式とURLを設定
@@ -251,6 +256,9 @@ var normalday="";
 
             //表に関して
             table1 = document.getElementById("data").innerHTML;
+            table4 = document.getElementById("content2").innerHTML;
+
+            console.log(table4);
 
             lastday = nowday;
             console.log("lastday:"+lastday);
@@ -267,174 +275,172 @@ if(normalday == days || lastday == normalday  || normaltime == "0時" || normalt
 
 }else{
 
-
-table2 =    `
-                <tr id='data`+listnum+`'>
-                    <td id='day`+listnum+`'>
-                        `+dayarray[listnum]+`
-                    </td>
+// table2 =    `
+//                 <tr id='data`+listnum+`'>
+//                     <td id='day`+listnum+`'>
+//                         `+dayarray[listnum]+`
+//                     </td>
                  
-                    <td id='nowtemp`+listnum+`'>
-                        `+temparray[listnum]+`℃
-                    </td>
+//                     <td id='nowtemp`+listnum+`'>
+//                         `+temparray[listnum]+`℃
+//                     </td>
 
-                    <td id='nowfeellikes`+listnum+`'>
-                        `+feels_likes_array[listnum]+`℃
-                    </td>
+//                     <td id='nowfeellikes`+listnum+`'>
+//                         `+feels_likes_array[listnum]+`℃
+//                     </td>
 
-                    <td id='nowfeellikes`+listnum+`'>
-                        `+humidityarray[listnum]+`%
-                    </td>
+//                     <td id='nowhumidityarray`+listnum+`'>
+//                         `+humidityarray[listnum]+`%
+//                     </td>
             
-                    <td id='rainpop`+listnum+`'>
-                        `+poparray[listnum]+`%
-                    </td>
+//                     <td id='rainpop`+listnum+`'>
+//                         `+poparray[listnum]+`%
+//                     </td>
                     
-                    <td id='precipitation`+listnum+`'>
-                        `+precipitationarray[listnum]+`mm
-                    </td>
+//                     <td id='precipitation`+listnum+`'>
+//                         `+precipitationarray[listnum]+`mm
+//                     </td>
 
-                    <td id='weather`+listnum+`'>
-                        `+weatherarray[listnum]+`
-                    </td>
+//                     <td id='weather`+listnum+`'>
+//                         `+weatherarray[listnum]+`
+//                     </td>
 
-                    <td id='weather_icon`+listnum+`'>
-                        <img src="https://openweathermap.org/img/wn/`+weathericonarray[listnum]+`.png" alt="`+weatherarray[listnum]+`">
-                    </td>
-                <tr>
+//                     <td id='weather_icon`+listnum+`'>
+//                         <img src="https://openweathermap.org/img/wn/`+weathericonarray[listnum]+`.png" alt="`+weatherarray[listnum]+`">
+//                     </td>
+//                 <tr>
+//             `;
+            
+
+
+            table5 =
+            `   
+            <div id="card`+listnum+`" class="card" style="width: 18rem;">
+                <img src="https://openweathermap.org/img/wn/`+weathericonarray[listnum]+`@4x.png" class="card-img-top" alt="`+weatherarray[listnum]+`">
+
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">`+dayarray[listnum]+`℃</li>
+                <li class="list-group-item">`+temparray[listnum]+`℃</li>
+                <li class="list-group-item">`+feels_likes_array[listnum]+`℃</li>
+                <li class="list-group-item">`+humidityarray[listnum]+`%</li>
+                <li class="list-group-item">`+poparray[listnum]+`%</li>
+                <li class="list-group-item">`+precipitationarray[listnum]+`mm</li>
+                <li class="list-group-item">`+weatherarray[listnum]+`</li>
+                </ul>
+            </div>
             `;
 
-            
-
-            table3 = table1 + table2;
+            table3 = table1 + table2 ;
+            table6 = table4 + table5 ;
             document.getElementById("data").innerHTML = table3;
+            document.getElementById("content2").innerHTML = table6;
 
-             //体感気温       
-             if(temp <= -5){
-                //最小値＜最大値
-               document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(0,32,128)";
-               document.getElementById("nowtemp"+listnum).style.color = "white";
-   
-               }else if(-4 <= temp && temp <= 0){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(0,65,255)";
-                   document.getElementById("nowtemp"+listnum).style.color = "white";
-                   
-                   
-               }else if(1 <= temp && temp <= 5){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(0,150,255)";
-                   document.getElementById("nowtemp"+listnum).style.color = "white";
-   
-               }else if(6 <= temp && temp <= 10){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(185,235,255)";
-                   document.getElementById("nowtemp"+listnum).style.color = "black";
-   
-               }else if(11 <= temp && temp <= 15){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(255,255,240)";
-                   document.getElementById("nowtemp"+listnum).style.color = "black";
-   
-               }else if(16 <= temp && temp <= 20){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(255,255,150)";
-                   document.getElementById("nowtemp"+listnum).style.color = "black";
-   
-               }else if(21 <= temp && temp <= 25){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(250,240,0)";
-                   document.getElementById("nowtemp"+listnum).style.color = "black";
-   
-               }else if(26 <= temp && temp <= 30){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(255,153,0)";
-                   document.getElementById("nowtemp"+listnum).style.color = "black";
-   
-               }else if(31 <= temp && temp <= 35){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(255,40,0)";
-                   document.getElementById("nowtemp"+listnum).style.color = "black";
-           
-               }else if(36 <= temp){
-                   document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(180,0,104)";
-                   document.getElementById("nowtemp"+listnum).style.color = "white";
-           
-               }else{
-               }
-               //~35
-               //35~30
-               //25~20
-               //20~15
-               //15~10
-               //10~5
-               //5~0
-               //0~-5
-               //-5~
+                    //体感気温       
+                    if(temp <= -5){
+                        //最小値＜最大値
+                    document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(0,32,128)";
+                    document.getElementById("nowtemp"+listnum).style.color = "white";
+        
+                    }else if(-4 <= temp && temp <= 0){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(0,65,255)";
+                        document.getElementById("nowtemp"+listnum).style.color = "white";
+                        
+                        
+                    }else if(1 <= temp && temp <= 5){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(0,150,255)";
+                        document.getElementById("nowtemp"+listnum).style.color = "white";
+        
+                    }else if(6 <= temp && temp <= 10){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(185,235,255)";
+                        document.getElementById("nowtemp"+listnum).style.color = "black";
+        
+                    }else if(11 <= temp && temp <= 15){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(255,255,240)";
+                        document.getElementById("nowtemp"+listnum).style.color = "black";
+        
+                    }else if(16 <= temp && temp <= 20){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(255,255,150)";
+                        document.getElementById("nowtemp"+listnum).style.color = "black";
+        
+                    }else if(21 <= temp && temp <= 25){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(250,240,0)";
+                        document.getElementById("nowtemp"+listnum).style.color = "black";
+        
+                    }else if(26 <= temp && temp <= 30){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(255,153,0)";
+                        document.getElementById("nowtemp"+listnum).style.color = "black";
+        
+                    }else if(31 <= temp && temp <= 35){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(255,40,0)";
+                        document.getElementById("nowtemp"+listnum).style.color = "black";
+                
+                    }else if(36 <= temp){
+                        document.getElementById("nowtemp"+listnum).style.backgroundColor = "rgb(180,0,104)";
+                        document.getElementById("nowtemp"+listnum).style.color = "white";
+                
+                    }else{
+                    }
+                    //~35
+                    //35~30
+                    //25~20
+                    //20~15
+                    //15~10
+                    //10~5
+                    //5~0
+                    //0~-5
+                    //-5~
 
 
-            //体感気温       
-            if(feels_like <= -5){
-                 //最小値＜最大値
-                document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(0,32,128)";
-                document.getElementById("nowfeellikes"+listnum).style.color = "white";
-    
-                }else if(-4 <= feels_like && feels_like <= 0){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(0,65,255)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "white";
-                    
-                    
-                }else if(1 <= feels_like && feels_like <= 5){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(0,150,255)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "white";
-    
-                }else if(6 <= feels_like && feels_like <= 10){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(185,235,255)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "black";
-    
-                }else if(11 <= feels_like && feels_like <= 15){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(255,255,240)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "black";
-    
-                }else if(16 <= feels_like && feels_like <= 20){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(255,255,150)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "black";
-    
-                }else if(21 <= feels_like && feels_like <= 25){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(250,240,0)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "black";
-    
-                }else if(26 <= feels_like && feels_like <= 30){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(255,153,0)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "black";
-    
-                }else if(31 <= feels_like && feels_like <= 35){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(255,40,0)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "black";
+                    //体感気温       
+                    if(feels_like <= -5){
+                        //最小値＜最大値
+                        document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(0,32,128)";
+                        document.getElementById("nowfeellikes"+listnum).style.color = "white";
             
-                }else if(36 <= feels_like){
-                    document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(180,0,104)";
-                    document.getElementById("nowfeellikes"+listnum).style.color = "white";
+                        }else if(-4 <= feels_like && feels_like <= 0){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(0,65,255)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "white";
+                            
+                            
+                        }else if(1 <= feels_like && feels_like <= 5){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(0,150,255)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "white";
             
-                }else{
-                }
-                //~35
-                //35~30
-                //25~20
-                //20~15
-                //15~10
-                //10~5
-                //5~0
-                //0~-5
-                //-5~
-                }
+                        }else if(6 <= feels_like && feels_like <= 10){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(185,235,255)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "black";
+            
+                        }else if(11 <= feels_like && feels_like <= 15){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(255,255,240)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "black";
+            
+                        }else if(16 <= feels_like && feels_like <= 20){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(255,255,150)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "black";
+            
+                        }else if(21 <= feels_like && feels_like <= 25){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(250,240,0)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "black";
+            
+                        }else if(26 <= feels_like && feels_like <= 30){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(255,153,0)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "black";
+            
+                        }else if(31 <= feels_like && feels_like <= 35){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(255,40,0)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "black";
+                    
+                        }else if(36 <= feels_like){
+                            document.getElementById("nowfeellikes"+listnum).style.backgroundColor = "rgb(180,0,104)";
+                            document.getElementById("nowfeellikes"+listnum).style.color = "white";
+                    
+                        }else{
+                        }
+            }
 
             listnum++
         }
-
         listnum ="";
-        for (let i = 1; i <= 39; i++){   
-            listnum++ 
-            console.log(dayarray[listnum]);
-            if(dayarray[listnum] == hantei_loop_date){
-                temp
-            }
-        }
-
-        // console.log(document.getElementById("data").innerHTML);
-    
     }
 
 
