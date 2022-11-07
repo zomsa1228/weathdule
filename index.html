@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+ <meta charset="utf-8">
+ <title>Wethdule.com：今日の天気</title>
+ <meta name="description" content="Wethdule.com">
+ <meta name="keywords" content="サイトキーワードを,で区切って入力">
+ <link rel="stylesheet" href="./css/style.css">
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+
+ <script src="https://kit.fontawesome.com/7d374c8c31.js" crossorigin="anonymous"></script>
+ <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+ <script src="./script/script.js"></script>
+ </head>
+ 
+ <body>
+    <h1>スケジュールを入れれるかの確認サイト</h1>
+        <h2>気温・天気での判定</h2>
+    <form><label>都市</label>
+        <select name="city" id="cities" onchange="transmission()">
+            <!-- 北海道・東北 -->
+            <option value="">都市を選択してください</option>
+            <option value="sapporo">北海道</option>
+            <option value="akita">秋田県</option>
+            <option value="morioka">岩手県</option>
+            <option value="sendai">宮城県</option>
+            <option value="yamagata">山形県</option>
+            <option value="fukushima">福島県</option>
+            <!-- 関東 -->
+            <option value="tokyo">東京都</option>
+            <option value="saitama">埼玉県</option>
+            <option value="yokohama">神奈川県</option>
+            <option value="chiba">千葉県</option>
+            <option value="maebashi">群馬県</option>
+            <option value="mito">茨城県</option>
+            <option value="utsunomiya">栃木県</option>
+        </select>
+
+            <select name="city_5" id="cities_5" onchange="day_5()">
+                <!-- 北海道・東北 -->
+                <option value="">都市を選択してください</option>
+                <option value="sapporo">北海道</option>
+                <option value="akita">秋田県</option>
+                <option value="morioka">岩手県</option>
+                <option value="sendai">宮城県</option>
+                <option value="yamagata">山形県</option>
+                <option value="fukushima">福島県</option>
+                <!-- 関東 -->
+                <option value="tokyo">東京都</option>
+                <option value="saitama">埼玉県</option>
+                <option value="yokohama">神奈川県</option>
+                <option value="chiba">千葉県</option>
+                <option value="maebashi">群馬県</option>
+                <option value="mito">茨城県</option>
+                <option value="utsunomiya">栃木県</option>
+                <!-- 外国 -->
+                <option value="london">ロンドン</option>
+                </select>
+            
+            <input type="reset" onclick="reload()" >
+            <br />
+            <hr>
+            <!-- <label>判定用数値設定</label>
+            <br />
+            <label>最高気温</label>
+            <input type="number" id="input_max_temp" placeholder="-100 ～ 100の数値" min="-100" max="100">
+            <br />
+            <label>最低気温</label>
+            <input type="number" id="input_min_temp" placeholder="-100 ～ 100の数値" min="-100" max="100">
+            <br />
+            <label>湿度　　</label>
+            <input type="number" id="input_humidity" placeholder="0 ～ 100の数値" min="0" max="100">
+            <br />
+            <hr> 
+        <input type="button" value="検索" onclick="getweather()">-->
+    </form>
+
+
+    <div id="result">
+        <h1>検索結果</h1>
+            <p>熱中症判定：<span id="hantei_temp"></span><br/>
+            天候判定：<span id="hantei_weather"></span><br/>
+            総合判定：<span id="hantei_result"></span>
+        </p>
+
+       <h2>詳細天気</h2>
+        <div class="container">
+            <p id="result_content">都市：<span id="city"></span><br />
+                現在の天気：<span id="weather"></span><br />
+                現在の気温：<span id="temp"></span>℃<br />
+                現在の湿度：<i class="fa-solid fa-droplet"></i> <span id="humidity"></span>%<br />
+                現在の体感気温：<span id="feels_like"></span>℃<br />
+                今日の最高気温：<i class="fa-solid fa-temperature-arrow-up"></i> <span id="temp_max"></span>℃<br />
+                今日の最低気温：<i class="fa-solid fa-temperature-arrow-down"></i> <span id="temp_min"></span>℃</p>
+                
+        </div>
+    </div>        
+    <h1 id="city_name"></h1>
+    
+    <div id="result_5days">
+        <p>
+            <span id="nowdate">
+            </span>
+        </p>
+    </div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>
+                        日付と時間
+                    </th>
+                    <th>
+                        現在の気温
+                    </th>
+                    <th>
+                        体感気温
+                    </th>
+                    <th>
+                        湿度
+                    </th>
+                    <th>
+                        降水確率
+                    </th>
+                    <th>
+                        降水量
+                    </th>
+                    <th>
+                        天候
+                    </th>
+
+                    <th>
+                        アイコン
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody id="data">
+
+            </tbody>
+        </table>
+ </body>
+</html>
