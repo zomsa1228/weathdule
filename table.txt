@@ -1,0 +1,35 @@
+// table2 =    `
+//                 <tr id='data`+listnum+`'>
+//                     <td id='day`+listnum+`'>
+//                         `+dayarray[listnum]+`
+//                     </td>
+                 
+//                     <td id='nowtemp`+listnum+`'>
+//                         `+temparray[listnum]+`℃
+//                     </td>
+
+//                     <td id='nowfeellikes`+listnum+`'>
+//                         `+feels_likes_array[listnum]+`℃
+//                     </td>
+
+//                     <td id='nowhumidityarray`+listnum+`'>
+//                         `+humidityarray[listnum]+`%
+//                     </td>
+            
+//                     <td id='rainpop`+listnum+`'>
+//                         `+poparray[listnum]+`%
+//                     </td>
+                    
+//                     <td id='precipitation`+listnum+`'>
+//                         `+precipitationarray[listnum]+`mm
+//                     </td>
+
+//                     <td id='weather`+listnum+`'>
+//                         `+weatherarray[listnum]+`
+//                     </td>
+
+//                     <td id='weather_icon`+listnum+`'>
+//                         <img src="https://openweathermap.org/img/wn/`+weathericonarray[listnum]+`.png" alt="`+weatherarray[listnum]+`">
+//                     </td>
+//                 <tr>
+//             `;
